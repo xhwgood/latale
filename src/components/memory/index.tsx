@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import styled from 'styled-components'
-import { LS_KZN_TIMES, LS_MY_SKILLS, NORMAL_SKILLS, SPEED } from './constants'
+import { LS_KZN_TIMES, LS_MY_SKILLS, NORMAL_SKILLS, SPEED } from '../../constants'
 
 const Container = styled.div`
   width: 182px;
@@ -59,7 +59,7 @@ type MySkills = {
   skillGrade: number
 }[]
 
-function App() {
+const Index = () => {
   const [mySkills, setMySkills] = useState<MySkills>()
 
   const generateRandomSkill = useCallback(
@@ -136,4 +136,4 @@ function App() {
   )
 }
 
-export default App
+export default Index
