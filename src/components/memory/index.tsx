@@ -1,6 +1,11 @@
 import { useEffect, useState, useCallback } from 'react'
 import styled from 'styled-components'
 import { LS_KZN_TIMES, LS_MY_SKILLS, NORMAL_SKILLS, SPEED } from './constants'
+import { Button } from 'antd'
+
+const Tips = styled.div`
+  width: 182px;
+`
 
 const Container = styled.div`
   width: 182px;
@@ -61,7 +66,9 @@ type MySkills = {
 
 const Index: React.FC = () => {
   const [mySkills, setMySkills] = useState<MySkills>()
+  const [times, setTimes] = useState(localStorage.getItem(LS_KZN_TIMES) || 0)
 
+  /** 生成一个随机技能 */
   const generateRandomSkill = useCallback(
     (currentSkills?: MySkills) => {
       /** 洗出来的技能不会重复，需要将已有的技能进行过滤（但速度可以重复） */
@@ -81,12 +88,9 @@ const Index: React.FC = () => {
     },
     []
   )
-
-  useEffect(() => {
-    const lsSkills = localStorage.getItem(LS_MY_SKILLS)
-    if (lsSkills) {
-      setMySkills(JSON.parse(lsSkills))
-    } else {
+  /** 重置所有技能 */
+  const resetAllSkills = useCallback(
+    () => {
       const currentSkills: MySkills = []
       const newSkills = Array(9).fill(0).map(_ => {
         const skill = generateRandomSkill(currentSkills)
@@ -97,8 +101,18 @@ const Index: React.FC = () => {
 
       localStorage.setItem(LS_KZN_TIMES, '9')
       setMySkills(newSkills)
+    },
+    [generateRandomSkill],
+  )
+
+  useEffect(() => {
+    const lsSkills = localStorage.getItem(LS_MY_SKILLS)
+    if (lsSkills) {
+      setMySkills(JSON.parse(lsSkills))
+    } else {
+      resetAllSkills()
     }
-  }, [generateRandomSkill])
+  }, [generateRandomSkill, resetAllSkills])
 
   useEffect(() => {
     localStorage.setItem(LS_MY_SKILLS, JSON.stringify(mySkills))
@@ -117,22 +131,35 @@ const Index: React.FC = () => {
 
       const lsTimes = localStorage.getItem(LS_KZN_TIMES)
       const current = Number(lsTimes) + 1
+      setTimes(current)
       localStorage.setItem(LS_KZN_TIMES, String(current))
     },
     [mySkills, generateRandomSkill]
   )
 
+  const handleReset = useCallback(
+    () => {
+      setTimes(9)
+      resetAllSkills()
+    },
+    [resetAllSkills],
+  )
+
   return (
-    <Container>
-      <Wrapper>
-        {mySkills?.map(({ skillGrade, skillName }, i) => (
-          <Item onClick={handleClick} data-i={i} key={skillName + i}>
-            <Label>[{skillName === SPEED ? '1' : 'S'}]</Label>{skillName + ' +' + skillGrade}{skillName === SPEED ? '%' : 'Lv'}
-          </Item>
-        ))}
-      </Wrapper>
-      <Bottom>卡兹诺的记忆效果<Triangle /></Bottom>
-    </Container>
+    <div>
+      <Tips>你已经洗了{times}次</Tips>
+      <Button type="primary" onClick={handleReset}>重置数据</Button>
+      <Container>
+        <Wrapper>
+          {mySkills?.map(({ skillGrade, skillName }, i) => (
+            <Item onClick={handleClick} data-i={i} key={skillName + i}>
+              <Label>[{skillName === SPEED ? '1' : 'S'}]</Label>{skillName + ' +' + skillGrade}{skillName === SPEED ? '%' : 'Lv'}
+            </Item>
+          ))}
+        </Wrapper>
+        <Bottom>卡兹诺的记忆效果<Triangle /></Bottom>
+      </Container>
+    </div>
   )
 }
 
