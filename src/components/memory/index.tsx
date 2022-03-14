@@ -59,7 +59,7 @@ type MySkills = {
   skillGrade: number
 }[]
 
-const Index = () => {
+const Index: React.FC = () => {
   const [mySkills, setMySkills] = useState<MySkills>()
 
   const generateRandomSkill = useCallback(

@@ -1,6 +1,5 @@
-import React from 'react'
 
-const Index = () => {
+const Index: React.FC = () => {
   return (
     <div>装备</div>
   )
