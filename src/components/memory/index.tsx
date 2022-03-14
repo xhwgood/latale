@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import styled from 'styled-components'
-import { LS_KZN_TIMES, LS_MY_SKILLS, NORMAL_SKILLS, SPEED } from '../../constants'
+import { LS_KZN_TIMES, LS_MY_SKILLS, NORMAL_SKILLS, SPEED } from './constants'
 
 const Container = styled.div`
   width: 182px;
