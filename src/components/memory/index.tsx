@@ -1,13 +1,15 @@
 import { useEffect, useState, useCallback } from 'react'
 import styled from 'styled-components'
-import { LS_KZN_TIMES, LS_MY_SKILLS, NORMAL_SKILLS, SPEED } from './constants'
+import { NORMAL_SKILLS, SPEED } from './constants'
 import { Button } from 'antd'
+import { LS_KZN_TIMES, LS_MY_SKILLS } from '../../constants'
 
 const Tips = styled.div`
   width: 182px;
 `
 
 const Container = styled.div`
+  margin-top: 6px;
   width: 182px;
   font-size: 12px;
   color: #ffc4a6;
