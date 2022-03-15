@@ -24,6 +24,7 @@ function App() {
 
   return (
     <Container>
+      <div>建议使用Chrome最新版浏览器</div>
       <Tabs defaultActiveKey={activeKey} onChange={handleChangeTabs}>
         <TabPane tab="记忆" key="memory">
           <Memory />
