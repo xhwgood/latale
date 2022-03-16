@@ -1,0 +1,7 @@
+.four-square + .four-square {
+	margin-left: 13px;
+}
+
+.square + .square {
+	margin-left: 4px;
+}

@@ -23,7 +23,7 @@ const WeaponProps = styled.div`
 const ExtraProps = styled.div`
   margin-top: 10px;
 `
-const testName = '噩梦双刀'
+const testName = '噩夢雙刀'
 /** 装备预览 */
 const Overview: React.FC = () => {
   return (

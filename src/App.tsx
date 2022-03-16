@@ -5,6 +5,11 @@ import styled from 'styled-components'
 import { Tabs } from 'antd'
 import { LS_TAB_ACTIVE_KEY } from './constants'
 
+const ChromeTips = styled.div`
+  font-size: 18px;
+  color: blue;
+`
+
 const Container = styled.div`
   margin: 0px 10px;
 `
@@ -24,7 +29,7 @@ function App() {
 
   return (
     <Container>
-      <div>建议使用Chrome最新版浏览器</div>
+      <ChromeTips>建议使用Chrome最新版浏览器</ChromeTips>
       <Tabs defaultActiveKey={activeKey} onChange={handleChangeTabs}>
         <TabPane tab="记忆" key="memory">
           <Memory />
