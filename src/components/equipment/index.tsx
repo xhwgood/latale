@@ -52,6 +52,18 @@ const Square = styled.div`
   width: 38px;
   height: 38px;
   border-radius: 10px;
+  overflow: hidden;
+`
+
+const QuarterCircle = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /* background: rgb(247, 252, 253); */
+  background: red;
+  width: 20px;
+  width: 20px;
+  border-radius: 50%;
 `
 
 const Index: React.FC = () => {
@@ -77,13 +89,15 @@ const Index: React.FC = () => {
       <Button type='primary' onClick={handleOpen}>道具强化</Button>
       <ItemTooltip>
         <Container>
-          {Array(8).fill(0).map((_, idx) => (
+          {Array(9).fill(0).map((_, idx) => (
             <Row>
               <NumberIndex>{idx + 1}</NumberIndex>
               {Array(3).fill(0).map(_ => (
                 <FourSquare className='four-square'>
                   {Array(4).fill(0).map(_ => (
-                    <Square className='square'></Square>
+                    <Square className='square'>
+                      <QuarterCircle />
+                    </Square>
                   ))}
                 </FourSquare>
               ))}

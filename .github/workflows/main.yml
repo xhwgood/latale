@@ -28,6 +28,10 @@ jobs:
       # Runs a single command using the runners shell
       - name: 安装依赖并构建
         run: yarn && yarn deploy
+        with:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: build # The folder the action should deploy.
 
       # Runs a set of commands using the runners shell
       # - name: Run a multi-line script
