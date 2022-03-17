@@ -3,6 +3,7 @@ import Equipment from './components/equipment/index'
 import Memory from './components/memory/index'
 import styled from 'styled-components'
 import { Tabs } from 'antd'
+import { TabsProps } from 'rc-tabs';
 import { LS_TAB_ACTIVE_KEY } from './constants'
 
 const ChromeTips = styled.div`
@@ -19,10 +20,10 @@ const { TabPane } = Tabs
 function App() {
   const [activeKey, setActiveKey] = useState(localStorage.getItem(LS_TAB_ACTIVE_KEY) || 'memory')
 
-  const handleChangeTabs = useCallback(
-    (key: string) => {
-      setActiveKey(key)
-      localStorage.setItem(LS_TAB_ACTIVE_KEY, key)
+  const handleChangeTabs = useCallback<Required<TabsProps>['onChange']>(
+    (activeKey) => {
+      setActiveKey(activeKey)
+      localStorage.setItem(LS_TAB_ACTIVE_KEY, activeKey)
     },
     []
   )

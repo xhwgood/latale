@@ -2,6 +2,7 @@ import { useCallback, useState, useMemo } from 'react'
 import styled from 'styled-components'
 import { Button } from 'antd'
 import Mosaic from './Mosaic'
+import Item from './Item'
 import { centercenter } from '../../styled/css'
 import './index.css'
 
@@ -40,16 +41,20 @@ const NumberIndex = styled.div`
   margin-right: 8px;
 `
 
+const SquareWrapper = styled.div`
+  position: relative;
+`
+
 const Square = styled.div`
   position: relative;
-  border: 2px solid;
+  border: 3px solid;
   border-left-color: rgb(210, 227, 234);
   border-top-color: rgb(210, 227, 234);
   border-right-color: rgb(225, 241, 243);
   border-bottom-color: rgb(225, 241, 243);
   background: rgb(240, 249, 251);
-  width: 38px;
-  height: 38px;
+  width: 35px;
+  height: 35px;
   border-radius: 10px;
   overflow: hidden;
 `
@@ -66,6 +71,7 @@ const QuarterCircle = styled.div`
 
 const Bottom = styled.div`
   width: 550px;
+  /* 暂时不开发道具栏滚动条，所以缩小宽度 */
   /* width: 564px; */
   height: 40px;
   border-radius: 4px;
@@ -99,8 +105,9 @@ const Ely = styled.div`
 `
 
 const Index: React.FC = () => {
-  const [ely, setEly] = useState(19999999)
+  const [ely] = useState(19999999)
   const [mosaicIsShow, setMosaicIsShow] = useState(false)
+  const [weaponMatrix, setWeaponMatrix] = useState(Array(9).fill(Array(12).fill(0)))
 
   const handleGenerate = useCallback(
     () => {
@@ -136,15 +143,19 @@ const Index: React.FC = () => {
       <ItemTooltip>
         <Container>
           {Array(9).fill(0).map((_, idx) => (
-            <Row>
+            <Row key={idx}>
               <NumberIndex>{idx + 1}</NumberIndex>
               {Array(12).fill(0).map((_, squareIdx) => (
-                <Square
-                  className='square'
-                  style={squareIdx && (squareIdx + 1) % 4 == 0 ? { marginRight: '13px' } : {}}
-                >
-                  <QuarterCircle />
-                </Square>
+                <SquareWrapper key={squareIdx}>
+                  <Square
+                    className='square'
+                    style={squareIdx && (squareIdx + 1) % 4 === 0 ? { marginRight: '13px' } : {}}
+                  >
+                    <QuarterCircle />
+                  </Square>
+                  {/* {idx === 0 && squareIdx === 1 && <Item x={10} y={10} />} */}
+                  <Item x={1} y={1} />
+                </SquareWrapper>
               ))}
             </Row>
           ))}

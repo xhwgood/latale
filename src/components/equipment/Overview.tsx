@@ -3,15 +3,25 @@ import styled from 'styled-components'
 import { CommonText } from '../../styled'
 import { NIGHTMARE_DEFAULT, NIGHTMARE_WEAPONS } from './constants'
 
-const Container = styled.div`
+interface Props {
+  offsetX: number
+  offsetY: number
+}
+
+const Container = styled.div<Props>`
   border: 1px rgb(101, 97, 168) solid;
   border-radius: 5px;
   padding: 5px;
   display: flex;
   flex-direction: column;
   position: absolute;
+  background: white;
+  left: ${({ offsetX }) => `${offsetX}px`};
+  top: ${({ offsetY }) => `${offsetY}px`};
   font-size: 10px;
   line-height: 14px;
+  white-space: nowrap;
+  z-index: 10;
 `
 
 const LimitInfo = styled.div`
@@ -25,9 +35,9 @@ const ExtraProps = styled.div`
 `
 const testName = '噩夢雙刀'
 /** 装备预览 */
-const Overview: React.FC = () => {
+const Overview: React.FC<Props> = ({ offsetX, offsetY }) => {
   return (
-    <Container>
+    <Container offsetX={offsetX} offsetY={offsetY}>
       <CommonText color='#ff75bc' align='center'>{testName}</CommonText>
       <CommonText color='#6d6d6d' align='center'>[战斗装备-{NIGHTMARE_WEAPONS[testName].weaponType}]</CommonText>
       <LimitInfo>
@@ -42,10 +52,10 @@ const Overview: React.FC = () => {
       </LimitInfo>
       <WeaponProps>
         {NIGHTMARE_WEAPONS[testName].props.map(item => (
-          <CommonText>{item}</CommonText>
+          <CommonText key={item}>{item}</CommonText>
         ))}
         {NIGHTMARE_DEFAULT.map(item => (
-          <CommonText>{item}</CommonText>
+          <CommonText key={item}>{item}</CommonText>
         ))}
       </WeaponProps>
       <ExtraProps></ExtraProps>
