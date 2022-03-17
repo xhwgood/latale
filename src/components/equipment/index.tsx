@@ -1,7 +1,6 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useMemo } from 'react'
 import styled from 'styled-components'
 import { Button } from 'antd'
-import Overview from './Overview'
 import Mosaic from './Mosaic'
 import { centercenter } from '../../styled/css'
 import './index.css'
@@ -12,12 +11,16 @@ const GenerateBtn = styled(Button)`
 
 const ItemTooltip = styled.div`
   display: flex;
+  font-size: 12px;
 `
 
 const Container = styled.div`
   position: relative;
   width: 566px;
   margin-top: 20px;
+  border: 1px solid rgb(221, 224, 209);
+  border-radius: 15px;
+  padding: 8px;
 `
 
 const Row = styled.div`
@@ -37,10 +40,6 @@ const NumberIndex = styled.div`
   margin-right: 8px;
 `
 
-const FourSquare = styled.div`
-  display: flex;
-`
-
 const Square = styled.div`
   position: relative;
   border: 2px solid;
@@ -54,19 +53,53 @@ const Square = styled.div`
   border-radius: 10px;
   overflow: hidden;
 `
-
+/** 单个栏左上角四分之一圆，偏白色 */
 const QuarterCircle = styled.div`
   position: absolute;
-  left: 50%;
-  top: 50%;
-  /* background: rgb(247, 252, 253); */
-  background: red;
+  left: -20%;
+  top: -20%;
+  background: rgb(247, 252, 253);
   width: 20px;
-  width: 20px;
+  height: 20px;
   border-radius: 50%;
 `
 
+const Bottom = styled.div`
+  width: 550px;
+  /* width: 564px; */
+  height: 40px;
+  border-radius: 4px;
+  background: rgb(164, 192, 201);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 7px;
+  color: whitesmoke;
+`
+
+const Option = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0 22px 0 41px;
+  background: linear-gradient(to right, rgb(82, 123, 135), rgb(84, 125, 137));
+  border-radius: 2px;
+  height: 29px;
+`
+
+const Ely = styled.div`
+  width: 150px;
+  height: 28px;
+  background: linear-gradient(rgb(0, 2, 2), rgb(13, 71, 93));
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  padding-right: 7px;
+  color: rgb(255, 250, 117);
+  border-radius: 2px;
+`
+
 const Index: React.FC = () => {
+  const [ely, setEly] = useState(19999999)
   const [mosaicIsShow, setMosaicIsShow] = useState(false)
 
   const handleGenerate = useCallback(
@@ -82,6 +115,19 @@ const Index: React.FC = () => {
     },
     [],
   )
+  /** 将金额格式化，每隔 4位添加一个逗号 */
+  const formattedEly = useMemo(() => {
+    let sEly = ely.toString()
+    let result = ''
+
+    while (sEly.length > 4) {
+      result = ',' + sEly.slice(-4) + result
+      sEly = sEly.slice(0, sEly.length - 4)
+    }
+    if (sEly) { result = sEly + result }
+
+    return result
+  }, [ely])
 
   return (
     <>
@@ -92,18 +138,22 @@ const Index: React.FC = () => {
           {Array(9).fill(0).map((_, idx) => (
             <Row>
               <NumberIndex>{idx + 1}</NumberIndex>
-              {Array(3).fill(0).map(_ => (
-                <FourSquare className='four-square'>
-                  {Array(4).fill(0).map(_ => (
-                    <Square className='square'>
-                      <QuarterCircle />
-                    </Square>
-                  ))}
-                </FourSquare>
+              {Array(12).fill(0).map((_, squareIdx) => (
+                <Square
+                  className='square'
+                  style={squareIdx && (squareIdx + 1) % 4 == 0 ? { marginRight: '13px' } : {}}
+                >
+                  <QuarterCircle />
+                </Square>
               ))}
             </Row>
           ))}
-          <Overview />
+          <Bottom>
+            <div>
+              <Option>道具强化</Option>
+            </div>
+            <Ely>{formattedEly}</Ely>
+          </Bottom>
         </Container>
         {mosaicIsShow && <Mosaic />}
       </ItemTooltip>

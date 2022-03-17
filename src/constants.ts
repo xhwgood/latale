@@ -8,3 +8,5 @@ export const LS_TAB_ACTIVE_KEY = 'tabName'
 export const LS_MY_WEAPON = 'myWeapon'
 /** 当前怪物 */
 export const LS_MONSTER = 'currentMonster'
+/** 当前 ely */
+export const LS_ELY = 'ely'
