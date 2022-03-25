@@ -1,4 +1,6 @@
-export const NIGHTMARE_WEAPONS = {
+import { Weapon } from "."
+
+export const NIGHTMARE_WEAPONS: Record<string, Partial<Weapon>> = {
   '噩夢拳套': {},
   '噩夢短劍': {},
   '噩夢單手劍': {},

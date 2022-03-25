@@ -3,19 +3,20 @@ import styled from 'styled-components'
 import { throttle } from '../../utils/fn'
 import Overview from './Overview'
 
-interface TContainer {
+export interface TContainer {
   x: number
   y: number
 }
 
 const Container = styled.div<TContainer>`
   position: absolute;
+  display: inline-block;
   left: 0;
   top: 0;
   z-index: 1;
   width: 35px;
   height: 35px;
-  background: ${({ x, y }) => `url('./ITEMBATTLE_ICON12.PNG') no-repeat ${x * 35}px ${y * 35}px`};
+  background: ${({ x, y }) => `url('${process.env.PUBLIC_URL}/img/ITEMBATTLE_ICON12.PNG') no-repeat -${x * 35}px -${y * 35}px`};
 `
 
 const Item: React.FC<TContainer> = ({ x, y }) => {
@@ -34,7 +35,11 @@ const Item: React.FC<TContainer> = ({ x, y }) => {
 
   const handleMouseMove = useMemo(() => {
     return throttle((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      console.log(e.clientX, e.nativeEvent.offsetX)
+      const { offsetX, offsetY } = e.nativeEvent
+      // setOverviewOffset({
+      //   x: offsetX + 20,
+      //   y: offsetY + 20
+      // })
     })
   }, [])
 
@@ -47,7 +52,7 @@ const Item: React.FC<TContainer> = ({ x, y }) => {
 
   return (
     <Container x={x} y={y} onMouseEnter={handleMouseEnter} onMouseMove={handleMouseMove} onMouseOut={handleMouseOut}>
-      {/* {overviewIsShow && <Overview xOffset={overviewOffset.x} yOffset={overviewOffset.y} />} */}
+      {overviewIsShow && <Overview offsetX={overviewOffset.x} offsetY={overviewOffset.y} />}
     </Container>
   )
 }

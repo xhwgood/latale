@@ -2,9 +2,21 @@ import { useCallback, useState, useMemo } from 'react'
 import styled from 'styled-components'
 import { Button } from 'antd'
 import Mosaic from './Mosaic'
-import Item from './Item'
+import Item, { TContainer } from './Item'
 import { centercenter } from '../../styled/css'
+import { LS_MY_WEAPON, LS_ELY } from '../../constants'
 import './index.css'
+import { getLSItem } from '../../utils/fn'
+import { NIGHTMARE_WEAPONS } from './constants'
+
+export interface Weapon {
+  props: string[]
+  weaponType: string
+  job: string
+}
+
+interface WeaponItem extends Partial<Weapon>, TContainer {
+}
 
 const GenerateBtn = styled(Button)`
   margin-right: 20px;
@@ -105,15 +117,30 @@ const Ely = styled.div`
 `
 
 const Index: React.FC = () => {
-  const [ely] = useState(19999999)
+  const [ely] = useState<number>(getLSItem(LS_ELY, 19999999))
   const [mosaicIsShow, setMosaicIsShow] = useState(false)
-  const [weaponMatrix, setWeaponMatrix] = useState(Array(9).fill(Array(12).fill(0)))
+  const [weaponMatrix, setWeaponMatrix] = useState<WeaponItem[][]>(getLSItem(LS_MY_WEAPON, Array(9).fill(Array(12))))
 
   const handleGenerate = useCallback(
     () => {
-
+      for (let i = 0; i < weaponMatrix.length; i++) {
+        for (let j = 0; j < weaponMatrix[i].length; j++) {
+          // 从左到右，从上到下遍历，找到第一个空的位置
+          if (!weaponMatrix[i][j]) {
+            // 随机生成一个武器
+            weaponMatrix[i][j] = {
+              ...NIGHTMARE_WEAPONS['噩夢雙刀'],
+              x: Math.floor(Math.random() * 15),
+              y: Math.floor(Math.random() * 15)
+            }
+            localStorage.setItem(LS_MY_WEAPON, JSON.stringify(weaponMatrix))
+            setWeaponMatrix(weaponMatrix)
+            return
+          }
+        }
+      }
     },
-    []
+    [weaponMatrix]
   )
 
   const handleOpen = useCallback(
@@ -139,7 +166,6 @@ const Index: React.FC = () => {
   return (
     <>
       <GenerateBtn type='primary' onClick={handleGenerate}>生成武器</GenerateBtn>
-      <Button type='primary' onClick={handleOpen}>道具强化</Button>
       <ItemTooltip>
         <Container>
           {Array(9).fill(0).map((_, idx) => (
@@ -153,15 +179,14 @@ const Index: React.FC = () => {
                   >
                     <QuarterCircle />
                   </Square>
-                  {/* {idx === 0 && squareIdx === 1 && <Item x={10} y={10} />} */}
-                  <Item x={1} y={1} />
+                  {!!weaponMatrix[idx][squareIdx] && <Item x={10} y={10} />}
                 </SquareWrapper>
               ))}
             </Row>
           ))}
           <Bottom>
             <div>
-              <Option>道具强化</Option>
+              <Option onClick={handleOpen}>道具强化</Option>
             </div>
             <Ely>{formattedEly}</Ely>
           </Bottom>

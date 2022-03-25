@@ -11,3 +11,11 @@ export const throttle = (fn: Function, delay = 300) => {
     }, delay)
   }
 }
+/**
+ * 从 `localstorage` 中读取数据（不适用字符串类型的数据）
+ * @param key 
+ * @param defaultItem 默认值
+ */
+export const getLSItem = <T>(key: string, defaultItem?: T): T => {
+  return JSON.parse(localStorage.getItem(key) || JSON.stringify(defaultItem))
+}

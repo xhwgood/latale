@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { NORMAL_SKILLS, SPEED } from './constants'
 import { Button } from 'antd'
 import { LS_KZN_TIMES, LS_MY_SKILLS } from '../../constants'
+import { getLSItem } from '../../utils/fn'
 
 const Tips = styled.div`
   width: 182px;
@@ -68,7 +69,7 @@ type MySkills = {
 
 const Index: React.FC = () => {
   const [mySkills, setMySkills] = useState<MySkills>()
-  const [times, setTimes] = useState(localStorage.getItem(LS_KZN_TIMES) || 0)
+  const [times, setTimes] = useState(getLSItem(LS_KZN_TIMES, 0))
 
   /** 生成一个随机技能 */
   const generateRandomSkill = useCallback(
@@ -131,12 +132,10 @@ const Index: React.FC = () => {
       mySkillsCopy[dataI] = newSkill
       setMySkills(mySkillsCopy)
 
-      const lsTimes = localStorage.getItem(LS_KZN_TIMES)
-      const current = Number(lsTimes) + 1
-      setTimes(current)
-      localStorage.setItem(LS_KZN_TIMES, String(current))
+      setTimes(t => t + 1)
+      localStorage.setItem(LS_KZN_TIMES, String(times + 1))
     },
-    [mySkills, generateRandomSkill]
+    [mySkills, generateRandomSkill, times]
   )
 
   const handleReset = useCallback(
