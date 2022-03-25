@@ -51,7 +51,7 @@ const Overview: React.FC<Props> = ({ offsetX, offsetY }) => {
         <CommonText color='#1d747c'>可分解</CommonText>
       </LimitInfo>
       <WeaponProps>
-        {NIGHTMARE_WEAPONS[testName].props.map(item => (
+        {NIGHTMARE_WEAPONS[testName].props?.map(item => (
           <CommonText key={item}>{item}</CommonText>
         ))}
         {NIGHTMARE_DEFAULT.map(item => (
