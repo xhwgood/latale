@@ -8,15 +8,18 @@ export interface TContainer {
   y: number
 }
 
+const sideLength = 32
+
 const Container = styled.div<TContainer>`
   position: absolute;
   display: inline-block;
-  left: 0;
-  top: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   z-index: 1;
-  width: 35px;
-  height: 35px;
-  background: ${({ x, y }) => `url('${process.env.PUBLIC_URL}/img/ITEMBATTLE_ICON12.PNG') no-repeat -${x * 35}px -${y * 35}px`};
+  width: ${sideLength}px;
+  height: ${sideLength}px;
+  background: ${({ x, y }) => `url('${process.env.PUBLIC_URL}/img/ITEMBATTLE_ICON12.PNG') no-repeat -${x * sideLength}px -${y * sideLength}px`};
 `
 
 const Item: React.FC<TContainer> = ({ x, y }) => {

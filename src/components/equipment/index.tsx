@@ -65,8 +65,8 @@ const Square = styled.div`
   border-right-color: rgb(225, 241, 243);
   border-bottom-color: rgb(225, 241, 243);
   background: rgb(240, 249, 251);
-  width: 35px;
-  height: 35px;
+  width: 39px;
+  height: 39px;
   border-radius: 10px;
   overflow: hidden;
 `
@@ -134,7 +134,7 @@ const Index: React.FC = () => {
               y: Math.floor(Math.random() * 15)
             }
             localStorage.setItem(LS_MY_WEAPON, JSON.stringify(weaponMatrix))
-            setWeaponMatrix(weaponMatrix)
+            setWeaponMatrix(JSON.parse(JSON.stringify(weaponMatrix)))
             return
           }
         }
@@ -179,7 +179,7 @@ const Index: React.FC = () => {
                   >
                     <QuarterCircle />
                   </Square>
-                  {!!weaponMatrix[idx][squareIdx] && <Item x={10} y={10} />}
+                  {!!weaponMatrix[idx][squareIdx] && <Item x={weaponMatrix[idx][squareIdx].x} y={weaponMatrix[idx][squareIdx].y} />}
                 </SquareWrapper>
               ))}
             </Row>
