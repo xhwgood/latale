@@ -5,9 +5,10 @@ import Mosaic from './Mosaic'
 import Item, { TContainer } from './Item'
 import { centercenter } from '../../styled/css'
 import { LS_MY_WEAPON, LS_ELY } from '../../constants'
-import './index.css'
 import { getLSItem } from '../../utils/fn'
 import { NIGHTMARE_WEAPONS } from './constants'
+import Overview from './Overview'
+import './index.css'
 
 export interface Weapon {
   props: string[]
@@ -120,6 +121,11 @@ const Index: React.FC = () => {
   const [ely] = useState<number>(getLSItem(LS_ELY, 19999999))
   const [mosaicIsShow, setMosaicIsShow] = useState(false)
   const [weaponMatrix, setWeaponMatrix] = useState<WeaponItem[][]>(getLSItem(LS_MY_WEAPON, Array(9).fill(Array(12))))
+  const [overviewIsShow, setOverviewIsShow] = useState(false)
+  const [overviewOffset, setOverviewOffset] = useState({
+    x: 0,
+    y: 0
+  })
 
   const handleGenerate = useCallback(
     () => {
@@ -179,7 +185,14 @@ const Index: React.FC = () => {
                   >
                     <QuarterCircle />
                   </Square>
-                  {!!weaponMatrix[idx][squareIdx] && <Item x={weaponMatrix[idx][squareIdx].x} y={weaponMatrix[idx][squareIdx].y} />}
+                  {!!weaponMatrix[idx][squareIdx] && (
+                    <Item
+                      setOverviewOffset={setOverviewOffset}
+                      setOverviewIsShow={setOverviewIsShow}
+                      x={weaponMatrix[idx][squareIdx].x}
+                      y={weaponMatrix[idx][squareIdx].y}
+                    />
+                  )}
                 </SquareWrapper>
               ))}
             </Row>
@@ -193,6 +206,7 @@ const Index: React.FC = () => {
         </Container>
         {mosaicIsShow && <Mosaic />}
       </ItemTooltip>
+      <Overview isShow={overviewIsShow} offsetX={overviewOffset.x} offsetY={overviewOffset.y} />
     </>
   )
 }
