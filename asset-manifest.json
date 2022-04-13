@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/latale/static/css/main.cc32c970.chunk.css",
-    "main.js": "/latale/static/js/main.d01b6031.chunk.js",
-    "main.js.map": "/latale/static/js/main.d01b6031.chunk.js.map",
+    "main.js": "/latale/static/js/main.fb9bb082.chunk.js",
+    "main.js.map": "/latale/static/js/main.fb9bb082.chunk.js.map",
     "runtime-main.js": "/latale/static/js/runtime-main.e2a6b4de.js",
     "runtime-main.js.map": "/latale/static/js/runtime-main.e2a6b4de.js.map",
     "static/css/2.2c41347c.chunk.css": "/latale/static/css/2.2c41347c.chunk.css",
-    "static/js/2.d0c153d8.chunk.js": "/latale/static/js/2.d0c153d8.chunk.js",
-    "static/js/2.d0c153d8.chunk.js.map": "/latale/static/js/2.d0c153d8.chunk.js.map",
+    "static/js/2.284fc244.chunk.js": "/latale/static/js/2.284fc244.chunk.js",
+    "static/js/2.284fc244.chunk.js.map": "/latale/static/js/2.284fc244.chunk.js.map",
     "static/js/3.5ab1cda2.chunk.js": "/latale/static/js/3.5ab1cda2.chunk.js",
     "static/js/3.5ab1cda2.chunk.js.map": "/latale/static/js/3.5ab1cda2.chunk.js.map",
     "index.html": "/latale/index.html",
     "static/css/2.2c41347c.chunk.css.map": "/latale/static/css/2.2c41347c.chunk.css.map",
     "static/css/main.cc32c970.chunk.css.map": "/latale/static/css/main.cc32c970.chunk.css.map",
-    "static/js/2.d0c153d8.chunk.js.LICENSE.txt": "/latale/static/js/2.d0c153d8.chunk.js.LICENSE.txt"
+    "static/js/2.284fc244.chunk.js.LICENSE.txt": "/latale/static/js/2.284fc244.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.e2a6b4de.js",
     "static/css/2.2c41347c.chunk.css",
-    "static/js/2.d0c153d8.chunk.js",
+    "static/js/2.284fc244.chunk.js",
     "static/css/main.cc32c970.chunk.css",
-    "static/js/main.d01b6031.chunk.js"
+    "static/js/main.fb9bb082.chunk.js"
   ]
 }
