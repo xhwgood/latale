@@ -44,7 +44,7 @@ const Item: React.FC<Props> = ({ x, y, setOverviewIsShow, setOverviewOffset }) =
         x: e.clientX + 13,
         y: e.clientY + 13
       })
-    })
+    }, 200)
   }, [setOverviewOffset])
 
   const handleMouseOut = useCallback(

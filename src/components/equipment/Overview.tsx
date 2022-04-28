@@ -30,7 +30,6 @@ const LimitInfo = styled.div`
   margin-bottom: 10px;
 `
 const WeaponProps = styled.div`
-  
 `
 const ExtraProps = styled.div`
   margin-top: 10px;
