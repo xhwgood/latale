@@ -12,7 +12,7 @@ export const throttle = (fn: Function, delay = 300) => {
   }
 }
 /**
- * 从 `localstorage` 中读取数据（不适用字符串类型的数据）
+ * 从 `localStorage` 中读取数据（不适用字符串类型的数据）
  * @param key 
  * @param defaultItem 默认值
  */

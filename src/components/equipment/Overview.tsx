@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import styled from 'styled-components'
-import { CommonText } from '../../styled'
 import { NIGHTMARE_DEFAULT, NIGHTMARE_WEAPONS } from './constants'
+import { CommonText } from '../../styled'
 
 interface Props {
   offsetX?: number
@@ -9,7 +9,7 @@ interface Props {
   isShow: boolean
 }
 
-const Container = styled.div<Props>`
+const Container = styled.div<Required<Props>>`
   border: 1px rgb(101, 97, 168) solid;
   border-radius: 5px;
   padding: 5px;
