@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import Equipment from './components/equipment/index'
 import Memory from './components/memory/index'
 import FourThousand from './components/4000/index'
+import Box from './components/box/index'
 import styled from 'styled-components'
 import { Tabs } from 'antd'
 import { TabsProps } from 'rc-tabs'
@@ -38,6 +39,9 @@ function App() {
 			<Tabs defaultActiveKey={activeKey} onChange={handleChangeTabs}>
 				<TabPane tab='4000 武器成本计算器' key='4000'>
 					<FourThousand />
+				</TabPane>
+				<TabPane tab='箱子数学期望计算器' key='box'>
+					<Box />
 				</TabPane>
 				<TabPane tab='记忆' key='memory'>
 					<Memory />

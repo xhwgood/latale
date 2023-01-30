@@ -97,11 +97,11 @@ const Index: React.FC = () => {
 				tempRate = tempRate * rate
 			}
 		}
-		console.log({ count, tempRate })
+		// console.log({ count, tempRate })
 
-		cost = (3 * count) / Math.pow(0.45, count) / tempRate
+		cost = (3.03 * count) / Math.pow(0.45, count) / tempRate
 
-		return cost
+		return cost.toFixed(2)
 	}, [
 		weaponMax,
 		weaponCritical,
@@ -112,7 +112,7 @@ const Index: React.FC = () => {
 
 	return (
 		<div>
-			<div>基础成功率 45%，一次成本 3亿 ely</div>
+			<div>基础成功率 45%，一次成本 3亿 ely + 2 黄金锤（300万 ely）</div>
 			<Classification title='武器（默认成本为 0）'>
 				<InputNumber
 					addonBefore='大伤：'
@@ -154,7 +154,7 @@ const Index: React.FC = () => {
 					min={1}
 					max={WEAPON_PENETRATION_MAX}
 				/>
-				最终成本：{weaponCost} 亿
+				最终成本约为：{weaponCost} 亿
 			</Classification>
 		</div>
 	)

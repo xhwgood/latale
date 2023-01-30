@@ -11,3 +11,13 @@ export const CommonText = styled.div<ICommonText>`
   text-align: ${({ align }) => align || 'left'};
   font-weight: bold;
 `
+
+export const SpaceAround = styled.div`
+  display: flex;
+  justify-content: space-around;
+`
+
+export const SpaceBetween = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
