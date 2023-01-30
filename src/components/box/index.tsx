@@ -94,6 +94,7 @@ const Index: React.FC = () => {
 							})
 						)
 					}}
+					min={0}
 					value={row.ely}
 				/>
 			)
@@ -124,6 +125,7 @@ const Index: React.FC = () => {
 							})
 						)
 					}}
+					min={0}
 					value={row.rmb}
 				/>
 			)
