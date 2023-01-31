@@ -29,6 +29,9 @@ enum Filter {
 }
 
 const ML = 10
+/** 最多显示多少结果 */
+const SHOW_RESULT_LENGTH = 150
+const INPUT_WIDTH = 130
 
 const SuccessTip = styled.span`
 	display: inline-block;
@@ -51,9 +54,13 @@ const Container = styled.div`
 	margin-bottom: 20px;
 `
 
+const OverNumTip = styled.span`
+	color: #555;
+`
+
 const CountRow = styled.div`
 	display: grid;
-	grid-template-columns: 120px 200px;
+	grid-template-columns: 120px ${INPUT_WIDTH + 20}px auto;
 	align-items: center;
 	margin-bottom: 15px;
 `
@@ -76,10 +83,12 @@ const SimulateMosaic: React.FC = () => {
 	const [totalCount, setTotalCount] = useState(0)
 	// 镶嵌结果列表
 	const [mosaicList, setMosaicList] = useState<ResultItem[]>([])
-	const [maxAndCritical, setMaxAndCritical] = useState(210)
+	const [maxAndCritical, setMaxAndCritical] = useState(240)
 
 	const handleBegin = useCallback(() => {
 		const l: ResultItem[] = []
+		// 先重置镶嵌总次数
+		setTotalCount(0)
 
 		for (let i = 0; i < count; i++) {
 			let successCount = 1
@@ -135,8 +144,13 @@ const SimulateMosaic: React.FC = () => {
 			return l.sort((a, b) => b.compositeValue - a.compositeValue)
 		}
 
-		return l
+		return l.slice(0, SHOW_RESULT_LENGTH)
 	}, [filter, mosaicList, checked])
+
+	const successWeaponNum = useMemo(
+		() => mosaicList.filter(({ isSuccess }) => isSuccess).length,
+		[mosaicList]
+	)
 
 	return (
 		<Container>
@@ -147,10 +161,13 @@ const SimulateMosaic: React.FC = () => {
 					addonAfter='件'
 					value={count}
 					min={1}
-					max={100}
+					max={10000}
 					onChange={v => setCount(v || 1)}
-					style={{ width: 110 }}
+					style={{ width: INPUT_WIDTH }}
 				/>
+				<OverNumTip>
+					超过 {SHOW_RESULT_LENGTH} 件武器时不显示全部结果
+				</OverNumTip>
 			</CountRow>
 			<AlignCenter>
 				<span>大伤 + 爆伤低于</span>
@@ -182,12 +199,15 @@ const SimulateMosaic: React.FC = () => {
 				checked={checked}
 				onChange={v => setChecked(v)}
 			/>
+
 			<List
 				size='small'
 				header={<span>镶嵌结果</span>}
 				footer={
 					<span>
-						一共镶嵌了：{totalCount} 次，成本为：{totalCount * SINGLE_COST} 亿
+						一共镶嵌了：{totalCount} 次，成本约为：
+						{(totalCount * SINGLE_COST).toFixed(2)} 亿，成功了{' '}
+						{successWeaponNum} 件
 					</span>
 				}
 				bordered
