@@ -37,7 +37,7 @@ function App() {
 		<Container>
 			<ChromeTips>建议使用Chrome最新版浏览器</ChromeTips>
 			<Tabs defaultActiveKey={activeKey} onChange={handleChangeTabs}>
-				<TabPane tab='4000 武器成本计算器' key='4000'>
+				<TabPane tab='4000 武器' key='4000'>
 					<FourThousand />
 				</TabPane>
 				<TabPane tab='箱子数学期望计算器' key='box'>

@@ -1,19 +1,20 @@
 import { useState, useMemo } from 'react'
-import { Card, InputNumber } from 'antd'
+import { Card, Collapse, Divider, InputNumber, Typography } from 'antd'
 import styled from 'styled-components'
+import {
+	WEAPON_DAMAGE_MAX,
+	WEAPON_CRITICAL_MAX,
+	WEAPON_STRENGTH_MAX,
+	WEAPON_ATTACK_MAX,
+	WEAPON_PENETRATION_MAX,
+	SINGLE_COST
+} from './constants'
+import SimulateMosaic from './SimulateMosaic'
 
 type NumberNull = number | null
 
-/** 大伤最大值 */
-const WEAPON_DAMAGE_MAX = 220
-/** 爆伤最大值 */
-const WEAPON_CRITICAL_MAX = 130
-/** 力量/魔力最大值 */
-const WEAPON_STRENGTH_MAX = 13
-/** 攻击力/属性力最大值 */
-const WEAPON_ATTACK_MAX = 13
-/** 贯穿力最大值 */
-const WEAPON_PENETRATION_MAX = 35
+const { Panel } = Collapse
+const { Title } = Typography
 
 const Classification = styled(Card)`
 	width: 300px;
@@ -99,7 +100,7 @@ const Index: React.FC = () => {
 		}
 		// console.log({ count, tempRate })
 
-		cost = (3.03 * count) / Math.pow(0.45, count) / tempRate
+		cost = (SINGLE_COST * count) / Math.pow(0.45, count) / tempRate
 
 		return cost.toFixed(2)
 	}, [
@@ -112,6 +113,16 @@ const Index: React.FC = () => {
 
 	return (
 		<div>
+			<Collapse ghost>
+				<Panel header='查看镶嵌数值' key='1'>
+					<p>大伤最大值为：{WEAPON_DAMAGE_MAX}%</p>
+					<p>爆伤最大值为：{WEAPON_CRITICAL_MAX}%</p>
+					<p>力量/魔力最大值为：{WEAPON_STRENGTH_MAX}%</p>
+					<p>攻击力/属性力最大值为：{WEAPON_ATTACK_MAX}%</p>
+					<p>贯穿力最大值为：{WEAPON_PENETRATION_MAX}%</p>
+				</Panel>
+			</Collapse>
+			<Title level={3}>成本计算器(未完善，计算结果比实际偏高)</Title>
 			<div>基础成功率 45%，一次成本 3亿 ely + 2 黄金锤（300万 ely）</div>
 			<Classification title='武器（默认成本为 0）'>
 				<InputNumber
@@ -156,6 +167,8 @@ const Index: React.FC = () => {
 				/>
 				最终成本约为：{weaponCost} 亿
 			</Classification>
+			<Divider />
+			<SimulateMosaic />
 		</div>
 	)
 }

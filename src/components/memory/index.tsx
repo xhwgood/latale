@@ -148,7 +148,7 @@ const Index: React.FC = () => {
 
   return (
     <div>
-      <div>几率不同于韩服官网几率，尚未加入扇子、雨伞职业</div>
+      <div>几率不同于韩服官网几率，尚未加入扇子、雨伞、守门员职业</div>
       <Tips>你已经洗了{times}次</Tips>
       <Button type="primary" onClick={handleReset}>重置数据</Button>
       <Container>

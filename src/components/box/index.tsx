@@ -138,7 +138,7 @@ const Index: React.FC = () => {
 		localStorage.setItem(testData[0].name, JSON.stringify(dataSource))
 		dataSource.forEach(({ name, num, rmb, rate, ely }) => {
 			if (!ely && !rmb) {
-				message.error(`请输入${name}的价格`)
+				message.error(`请输入 ${name} 的价格`)
 				throw new Error()
 			}
 
