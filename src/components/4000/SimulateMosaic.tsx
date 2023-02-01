@@ -73,14 +73,14 @@ const FormItem = styled(Form.Item)`
 `
 
 const SimulateMosaic: React.FC = () => {
-	const [count, setCount] = useState(2000)
+	const [count, setCount] = useState(10000)
 	const [filter, setFilter] = useState(Filter.ALL)
 	const [sortBy, setSortBy] = useState(SortBy.Time)
 	// 镶嵌总次数
 	const [totalCount, setTotalCount] = useState(0)
 	// 镶嵌结果列表
 	const [mosaicList, setMosaicList] = useState<ResultItem[]>([])
-	const [maxAndCritical, setMaxAndCritical] = useState(240)
+	const [maxAndCritical, setMaxAndCritical] = useState(270)
 
 	const handleBegin = useCallback(() => {
 		const l: ResultItem[] = []
@@ -144,23 +144,28 @@ const SimulateMosaic: React.FC = () => {
 				break
 		}
 
-		l = l.slice(0, SHOW_RESULT_LENGTH)
-
 		switch (sortBy) {
-			case SortBy.Time:
-				return l
+			// case SortBy.Time:
+			// 	l = l
+			// 	break
 			case SortBy.ValueDesc:
-				return l.sort((a, b) => b.compositeValue - a.compositeValue)
+				l = l.sort((a, b) => b.compositeValue - a.compositeValue)
+				break
 			case SortBy.ValueAsc:
-				return l.sort((a, b) => a.compositeValue - b.compositeValue)
+				l = l.sort((a, b) => a.compositeValue - b.compositeValue)
+				break
 			case SortBy.MaxDesc:
-				return l.sort((a, b) => b.maxDamage - a.maxDamage)
+				l = l.sort((a, b) => b.maxDamage - a.maxDamage)
+				break
 			case SortBy.CriticalDes:
-				return l.sort((a, b) => b.criticalDamage - a.criticalDamage)
+				l = l.sort((a, b) => b.criticalDamage - a.criticalDamage)
+				break
 
 			default:
 				break
 		}
+
+		return l.slice(0, SHOW_RESULT_LENGTH)
 	}, [filter, mosaicList, sortBy])
 
 	const successWeaponNum = useMemo(
@@ -177,7 +182,7 @@ const SimulateMosaic: React.FC = () => {
 					addonAfter='件'
 					value={count}
 					min={1}
-					max={10000}
+					max={50000}
 					onChange={v => setCount(v || 1)}
 					style={{ width: INPUT_WIDTH }}
 				/>
