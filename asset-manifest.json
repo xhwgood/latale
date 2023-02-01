@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/latale/static/css/main.beb02767.chunk.css",
-    "main.js": "/latale/static/js/main.7b7b160e.chunk.js",
-    "main.js.map": "/latale/static/js/main.7b7b160e.chunk.js.map",
+    "main.js": "/latale/static/js/main.d38f1c0f.chunk.js",
+    "main.js.map": "/latale/static/js/main.d38f1c0f.chunk.js.map",
     "runtime-main.js": "/latale/static/js/runtime-main.d59b9c6b.js",
     "runtime-main.js.map": "/latale/static/js/runtime-main.d59b9c6b.js.map",
     "static/css/2.6e48282e.chunk.css": "/latale/static/css/2.6e48282e.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.6e48282e.chunk.css",
     "static/js/2.fa51b079.chunk.js",
     "static/css/main.beb02767.chunk.css",
-    "static/js/main.7b7b160e.chunk.js"
+    "static/js/main.d38f1c0f.chunk.js"
   ]
 }
