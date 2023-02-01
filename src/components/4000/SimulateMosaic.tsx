@@ -1,6 +1,7 @@
-import { Typography, InputNumber, Button, List, Radio, Switch } from 'antd'
+import { Typography, InputNumber, Button, Radio, Form } from 'antd'
 import { useState, useMemo, useCallback } from 'react'
 import styled from 'styled-components'
+import List from './List'
 import {
 	WEAPON_DAMAGE_MAX,
 	WEAPON_CRITICAL_MAX,
@@ -10,7 +11,7 @@ import {
 	SINGLE_COST
 } from './constants'
 
-interface ResultItem {
+export interface ResultItem {
 	/** 镶嵌成功次数 */
 	successCount: number
 	maxDamage: number
@@ -28,25 +29,17 @@ enum Filter {
 	SUCCESS
 }
 
-const ML = 10
+enum SortBy {
+	Time,
+	ValueDesc,
+	ValueAsc,
+	MaxDesc,
+	CriticalDes
+}
+
 /** 最多显示多少结果 */
-const SHOW_RESULT_LENGTH = 150
+const SHOW_RESULT_LENGTH = 1000
 const INPUT_WIDTH = 130
-
-const SuccessTip = styled.span`
-	display: inline-block;
-	margin-left: ${ML}px;
-	color: red;
-`
-
-const MLSpan = styled.span`
-	display: inline-block;
-	margin-left: ${ML}px;
-`
-
-const Value = styled.span`
-	color: #5858ff;
-`
 
 const { Title } = Typography
 
@@ -75,10 +68,14 @@ const MosaicBtn = styled(Button)`
 	margin-bottom: 10px;
 `
 
+const FormItem = styled(Form.Item)`
+	margin-bottom: 11px;
+`
+
 const SimulateMosaic: React.FC = () => {
-	const [count, setCount] = useState(100)
+	const [count, setCount] = useState(2000)
 	const [filter, setFilter] = useState(Filter.ALL)
-	const [checked, setChecked] = useState(false)
+	const [sortBy, setSortBy] = useState(SortBy.Time)
 	// 镶嵌总次数
 	const [totalCount, setTotalCount] = useState(0)
 	// 镶嵌结果列表
@@ -89,6 +86,10 @@ const SimulateMosaic: React.FC = () => {
 		const l: ResultItem[] = []
 		// 先重置镶嵌总次数
 		setTotalCount(0)
+		const scrollEle = document.querySelector('.ant-list-items')
+		scrollEle?.scrollTo({
+			top: 0
+		})
 
 		for (let i = 0; i < count; i++) {
 			let successCount = 1
@@ -128,24 +129,39 @@ const SimulateMosaic: React.FC = () => {
 	const filteredList = useMemo(() => {
 		let l: ResultItem[] = []
 
-		if (filter === Filter.ALL) {
-			l = mosaicList
+		switch (filter) {
+			case Filter.ALL:
+				l = mosaicList
+				break
+			case Filter.FAILED:
+				l = mosaicList.filter(({ isSuccess }) => !isSuccess)
+				break
+			case Filter.SUCCESS:
+				l = mosaicList.filter(({ isSuccess }) => isSuccess)
+				break
+
+			default:
+				break
 		}
 
-		if (filter === Filter.FAILED) {
-			l = mosaicList.filter(({ isSuccess }) => !isSuccess)
-		}
+		l = l.slice(0, SHOW_RESULT_LENGTH)
 
-		if (filter === Filter.SUCCESS) {
-			l = mosaicList.filter(({ isSuccess }) => isSuccess)
-		}
+		switch (sortBy) {
+			case SortBy.Time:
+				return l
+			case SortBy.ValueDesc:
+				return l.sort((a, b) => b.compositeValue - a.compositeValue)
+			case SortBy.ValueAsc:
+				return l.sort((a, b) => a.compositeValue - b.compositeValue)
+			case SortBy.MaxDesc:
+				return l.sort((a, b) => b.maxDamage - a.maxDamage)
+			case SortBy.CriticalDes:
+				return l.sort((a, b) => b.criticalDamage - a.criticalDamage)
 
-		if (checked) {
-			return l.sort((a, b) => b.compositeValue - a.compositeValue)
+			default:
+				break
 		}
-
-		return l.slice(0, SHOW_RESULT_LENGTH)
-	}, [filter, mosaicList, checked])
+	}, [filter, mosaicList, sortBy])
 
 	const successWeaponNum = useMemo(
 		() => mosaicList.filter(({ isSuccess }) => isSuccess).length,
@@ -166,7 +182,7 @@ const SimulateMosaic: React.FC = () => {
 					style={{ width: INPUT_WIDTH }}
 				/>
 				<OverNumTip>
-					超过 {SHOW_RESULT_LENGTH} 件武器时不显示全部结果
+					因浏览器性能问题，超过 {SHOW_RESULT_LENGTH} 件武器时不显示全部结果
 				</OverNumTip>
 			</CountRow>
 			<AlignCenter>
@@ -184,68 +200,30 @@ const SimulateMosaic: React.FC = () => {
 			<MosaicBtn type='primary' onClick={handleBegin}>
 				开始镶嵌
 			</MosaicBtn>
-			<Radio.Group
-				value={filter}
-				onChange={e => setFilter(e.target.value)}
-				style={{ marginBottom: '10px' }}
-			>
-				<Radio value={Filter.ALL}>显示全部</Radio>
-				<Radio value={Filter.SUCCESS}>仅显示成功结果</Radio>
-				<Radio value={Filter.FAILED}>仅显示失败结果</Radio>
-			</Radio.Group>
-			<Switch
-				checkedChildren='按综合值排序'
-				unCheckedChildren='按综合值排序'
-				checked={checked}
-				onChange={v => setChecked(v)}
-			/>
+
+			<Form>
+				<FormItem label='过滤规则'>
+					<Radio.Group value={filter} onChange={e => setFilter(e.target.value)}>
+						<Radio value={Filter.ALL}>显示全部</Radio>
+						<Radio value={Filter.SUCCESS}>仅显示成功结果</Radio>
+						<Radio value={Filter.FAILED}>仅显示失败结果</Radio>
+					</Radio.Group>
+				</FormItem>
+				<FormItem label='排序规则'>
+					<Radio.Group value={sortBy} onChange={e => setSortBy(e.target.value)}>
+						<Radio value={SortBy.Time}>按时间排序</Radio>
+						<Radio value={SortBy.ValueDesc}>按综合值从大到小排序</Radio>
+						<Radio value={SortBy.ValueAsc}>按综合值从小到大排序</Radio>
+						<Radio value={SortBy.MaxDesc}>按大伤从大到小排序</Radio>
+						<Radio value={SortBy.CriticalDes}>按爆伤从大到小排序</Radio>
+					</Radio.Group>
+				</FormItem>
+			</Form>
 
 			<List
-				size='small'
-				header={<span>镶嵌结果</span>}
-				footer={
-					<span>
-						一共镶嵌了：{totalCount} 次，成本约为：
-						{(totalCount * SINGLE_COST).toFixed(2)} 亿，成功了{' '}
-						{successWeaponNum} 件
-					</span>
-				}
-				bordered
-				dataSource={filteredList}
-				renderItem={({
-					maxDamage,
-					criticalDamage,
-					isSuccess,
-					compositeValue,
-					order
-				}) => (
-					<List.Item>
-						第 {order} 件：
-						{maxDamage ? (
-							<span>
-								<span>
-									大伤:<Value>{maxDamage}%</Value>
-								</span>
-								{criticalDamage ? (
-									<span>
-										<MLSpan>
-											爆伤:<Value>{criticalDamage}%</Value>
-										</MLSpan>
-										{isSuccess && (
-											<SuccessTip>
-												镶嵌成功，综合值为{compositeValue}%
-											</SuccessTip>
-										)}
-									</span>
-								) : (
-									<MLSpan>第二次镶嵌失败</MLSpan>
-								)}
-							</span>
-						) : (
-							<span>第一次镶嵌失败</span>
-						)}
-					</List.Item>
-				)}
+				totalCount={totalCount}
+				successWeaponNum={successWeaponNum}
+				filteredList={filteredList}
 			/>
 		</Container>
 	)
