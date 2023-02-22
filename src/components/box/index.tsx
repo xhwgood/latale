@@ -5,6 +5,8 @@ import type { ColumnsType } from 'antd/es/table'
 import testData from './testData'
 import { getLSItem } from '../../utils/fn'
 
+const { list, name, price, time } = testData
+
 interface RecordType {
 	name: string
 	num: number
@@ -44,9 +46,17 @@ const Flex = styled.div`
 const Index: React.FC = () => {
 	// const [contentNo, setContentNo] = useState<number | null>()
 	const [dataSource, setDataSource] = useState(
-		getLSItem(testData[0].name, testData)
+		list.map(({ name, ...props }) => {
+			const priceObj = getLSItem(name, { ely: 0, rmb: 0 })
+
+			return {
+				...props,
+				name,
+				...priceObj
+			}
+		})
 	)
-	const [exchangeRate, setExchangeRate] = useState<number | null>(0.51)
+	const [exchangeRate, setExchangeRate] = useState<number | null>(0.6)
 	const [mathExpect, setMathExpect] = useState('0')
 
 	const columns: ColumnsType<RecordType> = [
@@ -135,12 +145,13 @@ const Index: React.FC = () => {
 	const getMathExpect = useCallback(() => {
 		let worth = 0
 
-		localStorage.setItem(testData[0].name, JSON.stringify(dataSource))
 		dataSource.forEach(({ name, num, rmb, rate, ely }) => {
 			if (!ely && !rmb) {
 				message.error(`请输入 ${name} 的价格`)
 				throw new Error()
 			}
+			// 把每一件物品的价格都存储到本地
+			localStorage.setItem(name, JSON.stringify({ ely, rmb }))
 
 			const currentWorth = (num * rate * ely) / 100
 			worth += currentWorth
@@ -185,11 +196,9 @@ const Index: React.FC = () => {
 				</CalculateBtn>
 				数学期望为：{mathExpect}亿 ely（{mathExpectRMB}元 rmb）
 			</ResultRow>
-			<div style={{ color: '#333399', fontSize: 24 }}>彩虹島物語精品箱子 V</div>
-			<div style={{ color: '#333399' }}>
-				販售時間: 2023.01.30 ~ 2023.02.12 23:59
-			</div>
-			<div style={{ color: '#333399' }}> 販售價格: 10 NTD </div>
+			<div style={{ color: '#333399', fontSize: 24 }}>{name}</div>
+			<div style={{ color: '#333399' }}>{time}</div>
+			<div style={{ color: '#333399' }}>{price}</div>
 			<DataTable
 				size='small'
 				columns={columns}

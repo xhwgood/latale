@@ -10,6 +10,7 @@ import {
 	WEAPON_PENETRATION_MAX,
 	SINGLE_COST
 } from './constants'
+import { AlignCenter, FormItem } from '../../styled'
 
 export interface ResultItem {
 	/** 镶嵌成功次数 */
@@ -58,18 +59,9 @@ const CountRow = styled.div`
 	margin-bottom: 15px;
 `
 
-const AlignCenter = styled.div`
-	display: flex;
-	align-items: center;
-`
-
 const MosaicBtn = styled(Button)`
 	display: block;
 	margin-bottom: 10px;
-`
-
-const FormItem = styled(Form.Item)`
-	margin-bottom: 11px;
 `
 
 const SimulateMosaic: React.FC = () => {

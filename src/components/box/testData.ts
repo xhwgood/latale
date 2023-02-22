@@ -81,4 +81,49 @@ const XVIII = [
   { name: '隨機麥克風箱子', ely: 0, rmb: 0, num: 3, rate: 10 },
 ]
 
-export default XVIII
+/**
+ * 彩虹島物語精品箱子 VI
+ * 
+ * 販售時間: 2023.02.20 ~ 2023.03.05 23:59
+ * 
+ * 販售價格: 19 NTD → 10 NTD
+ */
+const boutiqueVI = {
+  name: '彩虹島物語精品箱子 VI',
+  time: '販售時間: 2023.02.20 ~ 2023.03.05 23:59',
+  price: '販售價格: 19 NTD → 10 NTD',
+  list: [
+    { name: '棉花糖胖胖耶比領養券 [永久制]', ely: 0, rmb: 0, num: 1, rate: 0.1 },
+    { name: '布朗妮領養券[永久制]', ely: 112, rmb: 0, num: 1, rate: 0.1 },
+    { name: '雪鹿領養券', ely: 40, rmb: 0, num: 1, rate: 0.2 },
+    { name: '灰鼠領養券', ely: 25, rmb: 0, num: 1, rate: 0.2 },
+    { name: '神獸粉虎兌換券', ely: 40, rmb: 0, num: 1, rate: 0.2 },
+    { name: '羊套裝兌換券', ely: 12, rmb: 0, num: 1, rate: 0.6 },
+    { name: '狗狗套裝兌換券', ely: 1.2, rmb: 0, num: 1, rate: 0.6 },
+    { name: '傑芮尼斯魔法學院傷害字型外觀裝扮票券', ely: 0, rmb: 0, num: 1, rate: 0.6 },
+    { name: '傑芮尼斯魔法學院學習書 (30日)', ely: 0, rmb: 0, num: 1, rate: 0.6 },
+    { name: '傑芮尼斯魔法學院學習書 (永久制)', ely: 0, rmb: 0, num: 1, rate: 0.2 },
+    { name: '超人爆增卷軸 (30日)', ely: 1.4, rmb: 0, num: 1, rate: 1 },
+    { name: '經驗值的秘藥 888%', ely: 0.9, rmb: 0, num: 1, rate: 1 },
+    { name: '經驗值秘藥1000%', ely: 0.2, rmb: 0, num: 1, rate: 1 },
+    { name: '哈奴伊的24K釣魚桶', ely: 0.05, rmb: 0, num: 1, rate: 1 },
+    { name: '召喚獸指南 [經驗值&道具] 學習書(15日)', ely: 0, rmb: 0, num: 1, rate: 1 },
+    { name: '[活動] 寵物用回春草(15日)', ely: 0, rmb: 5, num: 1, rate: 2.8 },
+    { name: '[加油]台灣學習書', ely: 0, rmb: 0, num: 1, rate: 3.2 },
+    { name: '暢快戰隊(1)學習書', ely: 0, rmb: 0, num: 1, rate: 3.2 },
+    { name: '暢快戰隊(2)學習書', ely: 0, rmb: 0, num: 1, rate: 3.2 },
+    { name: '暢快戰隊(3)學習書', ely: 0, rmb: 0, num: 1, rate: 3.2 },
+    { name: '降級鑲嵌金錘', ely: 0, rmb: 0, num: 1, rate: 6 },
+    { name: '植物催化劑', ely: 0.4, rmb: 0, num: 1, rate: 6 },
+    { name: '高級暢快可樂', ely: 0, rmb: 0, num: 5, rate: 6 },
+    { name: '委託魚桶', ely: 0.05, rmb: 0, num: 2, rate: 6 },
+    { name: '遠端完成任務箱子', ely: 0, rmb: 0, num: 5, rate: 6 },
+    { name: '我是最棒的稱號學習書', ely: 0, rmb: 0, num: 15, rate: 9 },
+    { name: '我是好勝者稱號學習書', ely: 0, rmb: 0, num: 20, rate: 9 },
+    { name: '我是幸運兒稱號學習書', ely: 0, rmb: 0, num: 25, rate: 9 },
+    { name: '我是拳王稱號學習書', ely: 0, rmb: 0, num: 30, rate: 9 },
+    { name: '隨機麥克風箱子', ely: 0, rmb: 0, num: 3, rate: 10 },
+  ]
+}
+
+export default boutiqueVI
