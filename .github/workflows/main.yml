@@ -14,9 +14,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Install and Build 🔧
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v3.6.0
       with:
         node-version: 16
+
+    - name: Install and Build 🔧
       run: |
         yarn
         CI=false yarn build
