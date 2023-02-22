@@ -18,6 +18,8 @@ jobs:
       run: |
         yarn
         CI=false yarn build
+      with:
+        node-version: 16
 
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4.2.5

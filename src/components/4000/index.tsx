@@ -10,6 +10,7 @@ import {
 	SINGLE_COST
 } from './constants'
 import SimulateMosaic from './SimulateMosaic'
+import CostMathExpect from './CostMathExpect'
 
 type NumberNull = number | null
 
@@ -124,7 +125,8 @@ const Index: React.FC = () => {
 			</Collapse>
 			<Title level={3}>成本计算器(未完善，计算结果比实际偏高)</Title>
 			<div>基础成功率 45%，一次成本 3亿 ely + 2 黄金锤（300万 ely）</div>
-			<Classification title='武器（默认成本为 0）'>
+			<Title level={4}>版本一：</Title>
+			<Classification title='武器'>
 				<InputNumber
 					addonBefore='大伤：'
 					addonAfter='%'
@@ -167,6 +169,9 @@ const Index: React.FC = () => {
 				/>
 				最终成本约为：{weaponCost} 亿
 			</Classification>
+			
+			<CostMathExpect />
+			
 			<Divider />
 			<SimulateMosaic />
 		</div>
