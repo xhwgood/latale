@@ -1,10 +1,9 @@
 import styled from 'styled-components'
-import { Property } from 'csstype'
 import { Form } from 'antd'
 interface ICommonText {
 	color?: string
 	/** 默认左对齐 */
-	align?: Property.TextAlign
+	align?: React.CSSProperties['textAlign']
 }
 /** 通用文本样式 */
 export const CommonText = styled.div<ICommonText>`
