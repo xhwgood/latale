@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import { Tabs } from 'antd'
 import { TabsProps } from 'rc-tabs'
 import { LS_TAB_ACTIVE_KEY } from './constants'
+import Coupon from './components/Coupon'
 
 const ChromeTips = styled.div`
 	margin-top: 5px;
@@ -45,6 +46,9 @@ function App() {
 				</TabPane>
 				<TabPane tab='记忆' key='memory'>
 					<Memory />
+				</TabPane>
+				<TabPane tab='优惠券' key='coupon'>
+					<Coupon />
 				</TabPane>
 				{/* <TabPane tab="装备" key="equipment">
           <Equipment />
