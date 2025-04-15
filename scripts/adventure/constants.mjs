@@ -17,3 +17,13 @@ export const cardList = [
   -2,
   -3
 ]
+
+/** 倍数骰子列表 */
+export const multipleCardList = [
+  2,
+  3,
+  5,
+  7,
+  8,
+  10,
+]

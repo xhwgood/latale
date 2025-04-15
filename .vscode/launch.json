@@ -18,7 +18,7 @@
 		{
 			"type": "node",
 			"request": "launch",
-			"name": "启动程序",
+			"name": "启动冒险算法",
 			"skipFiles": ["<node_internals>/**"],
 			"program": "${workspaceFolder}\\scripts\\adventure\\index.js"
 		}
