@@ -27,3 +27,21 @@ export const multipleCardList = [
   8,
   10,
 ]
+/** 根据 */
+export const outGridGetCardList = [
+  40,
+  153,
+  158,
+  209,
+  257,
+  272,
+  276,
+  318,
+  355,
+  413,
+  565,
+  626,
+  937,
+  989,
+  1080,
+]

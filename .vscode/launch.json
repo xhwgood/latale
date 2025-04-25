@@ -16,6 +16,7 @@
 			"type": "node"
 		},
 		{
+			"console": "integratedTerminal",
 			"type": "node",
 			"request": "launch",
 			"name": "启动冒险算法",
